@@ -1,0 +1,5 @@
+# ignore everything in the dataset folder
+dataset/
+
+# ignore all CSV files, anywhere in the tree
+*.csv

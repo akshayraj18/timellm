@@ -1,0 +1,15 @@
+dataset_csv: ./dataset/ETTh1.csv
+time_col: date
+value_col: OT
+window: 12
+quant_bins: [0,5,10,20,50,100]
+horizons: [1,3,5]
+few_shots: [0,2]
+use_metadata: [false,true]
+model_names:
+  - sshleifer/tiny-gpt2
+  - distilgpt2
+max_rows: 1000
+fallback_strategy: mean
+max_new_tokens: 2
+output_csv: full_study_results.csv
