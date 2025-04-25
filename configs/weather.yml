@@ -1,0 +1,16 @@
+# configs/study_config_weather.yml
+dataset_csv: ./dataset/weather.csv
+time_col: date
+value_col: OT
+window: 144            # last 24 h at 10-min resolution
+quant_bins: [0, 5, 10]    # no quant vs. moderate quant
+horizons: [1, 3]    # 1-step & 3-step ahead
+few_shots: [0, 2]       # zero-shot only
+use_metadata: [false, true]  # no timestamp metadata
+model_names:
+  - sshleifer/tiny-gpt2
+  - openai:gpt-3.5-turbo
+max_rows: 1000
+fallback_strategy: mean
+max_new_tokens: 2
+output_csv: full_study_weather_results1.csv
