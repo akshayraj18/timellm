@@ -22,7 +22,7 @@ SCRIPT = Path(__file__).parent / "time_series_llm_experiment4.py"
 
 def run_one(params, idx, total, out_csv, metrics_first, examples_csv, examples_first):
     # display progress
-    print(f"[{idx:3d}/{total}] ⏳ {params['model_name']} | "
+    print(f"[{idx:3d}/{total}] {params['model_name']} | "
           f"bins={params['quant_bins']} h={params['horizon']} "
           f"few={params['few_shot']} meta={params['use_metadata']}")
     # build command
@@ -43,7 +43,7 @@ def run_one(params, idx, total, out_csv, metrics_first, examples_csv, examples_f
         metrics_df = pd.read_csv(tmp)
         os.remove(tmp)
     except Exception as e:
-        print(f"[{idx:3d}/{total}] ⚠️ Skipped {params['model_name']}: {e}")
+        print(f"[{idx:3d}/{total}] Skipped {params['model_name']}: {e}")
         return metrics_first, examples_first
 
     # tag sweep parameters onto metrics
@@ -55,7 +55,7 @@ def run_one(params, idx, total, out_csv, metrics_first, examples_csv, examples_f
                       mode="w" if metrics_first else "a",
                       header=metrics_first,
                       index=False)
-    print(f"[{idx:3d}/{total}] ✅ metrics")
+    print(f"[{idx:3d}/{total}] metrics")
 
     # now grab that run's example table and append into combined examples CSV
     safe = params["model_name"].replace("/", "_").replace(":", "_")
@@ -70,7 +70,7 @@ def run_one(params, idx, total, out_csv, metrics_first, examples_csv, examples_f
                      header=examples_first,
                      index=False)
         os.remove(ex_file)
-        print(f"[{idx:3d}/{total}] ✅ examples")
+        print(f"[{idx:3d}/{total}] examples")
         examples_first = False
 
     return False, examples_first  # metrics_first flips after first write
@@ -122,7 +122,7 @@ def main():
             metrics_first, examples_csv, examples_first
         )
 
-    print(f"\n✅ Study complete — metrics in `{out_csv}`, examples in `{examples_csv}`")
+    print(f"\n Study complete — metrics in `{out_csv}`, examples in `{examples_csv}`")
 
     # --- Combined bar chart of metrics ---
     df = pd.read_csv(out_csv)

@@ -201,20 +201,20 @@ def main():
     y_true = np.array(y_true, dtype=float)
     gen_tokens = args.max_new_tokens or args.horizon
 
-    print(f"\n▶️ Forecasting with `{args.model_name}` (tokens={gen_tokens})…")
+    print(f"\n Forecasting with `{args.model_name}` (tokens={gen_tokens})…")
     if args.model_name.startswith("openai:"):
         om = args.model_name.split("openai:")[1]
         y_base = openai_predict(base_prompts, om, gen_tokens, args.fallback_strategy)
         y_pap  = openai_predict(pap_prompts,  om, gen_tokens, args.fallback_strategy)
     else:
-        print("  • GPT-2 baseline…")
+        print(" GPT-2 baseline…")
         y_base = gpt2_predict(base_prompts, model, tokenizer,
                               gen_tokens, args.fallback_strategy)
-        print("  • GPT-2 PaP…")
+        print(" GPT-2 PaP…")
         y_pap  = gpt2_predict(pap_prompts, model, tokenizer,
                               gen_tokens, args.fallback_strategy)
 
-    print("  • ARIMA…")
+    print(" ARIMA…")
     y_ari = arima_predict(train_vals, values[split:])
 
     # --- build & relabel results ---
